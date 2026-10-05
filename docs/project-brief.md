@@ -77,7 +77,7 @@ Major decisions will be made in this order because later choices depend on earli
 | D003 | Management-group hierarchy | Archetype-aligned hierarchy based on the Azure landing-zone reference architecture | Proposed ([ADR-0002](decisions/0002-resource-organization.md)) |
 | D004 | Subscription strategy | Separate platform and application environments in the target state; provide an explicitly limited single-subscription lab profile | Proposed ([ADR-0002](decisions/0002-resource-organization.md)) |
 | D005 | Identity model | Microsoft Entra ID groups for humans, federated workload identities for automation, managed identities for Azure resources, and monitored emergency access | Proposed ([ADR-0003](decisions/0003-identity-and-access.md)) |
-| D006 | Connectivity model | Cost-conscious hub-and-spoke design with expensive components optional | Open |
+| D006 | Connectivity model | Traditional regional hub-and-spoke for connected workloads; Online workloads remain disconnected unless required; paid transit and inspection are optional profiles | Proposed ([ADR-0005](decisions/0005-network-connectivity.md)) |
 | D007 | Policy baseline | Layered initiatives composed primarily from built-ins, staged from audit to enforcement, with time-bound exemptions | Proposed ([ADR-0004](decisions/0004-policy-governance.md)) |
 | D008 | Monitoring and security | Central workspace design with configurable retention and optional Sentinel | Open |
 | D009 | First workload | Choose either the wedding or honeymoon website after inspecting both | Open |
