@@ -29,4 +29,4 @@ The project is currently in the requirements and architecture-decision phase. No
 - Keep credentials, tenant identifiers, subscription identifiers, and personal information out of source control.
 - Make deployment and teardown safe, documented, and repeatable.
 
-See [the project brief](docs/project-brief.md) for the initial scenario and constraints, and the [architecture decision index](docs/decisions/README.md) for choices awaiting review.
+See [the project brief](docs/project-brief.md) for the initial scenario and constraints, the [decision review workbook](docs/decision-review.md) for the choices that need approval, and the [architecture decision index](docs/decisions/README.md) for full records.
