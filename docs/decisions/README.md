@@ -21,6 +21,7 @@ Architecture decision records (ADRs) capture consequential choices, alternatives
 | [ADR-0004](0004-policy-governance.md) | Azure Policy governance and exceptions | Proposed | Layered initiatives, built-ins first, audit-to-enforce rollout, and expiring exemptions |
 | [ADR-0005](0005-network-connectivity.md) | Network topology, DNS, ingress, and egress | Proposed | Regional hub-and-spoke for connected workloads with optional paid services and isolated Online workloads |
 | [ADR-0006](0006-security-monitoring.md) | Security posture, centralized logging, alerting, and SIEM | Proposed | Central platform monitoring with selective collection and explicitly opt-in paid protections |
+| [ADR-0007](0007-resource-standards-and-cost.md) | Naming, tagging, regional placement, and cost ownership | Proposed | Stable service-aware names, governed tags, an East US 2 example default, and subscription budgets |
 
 ## Review checklist
 
@@ -45,6 +46,7 @@ The following choices require repository-owner confirmation before implementatio
 5. Use the proposed policy lifecycle and exemption process.
 6. Use traditional hub-and-spoke as the default connected topology while keeping the public website disconnected from the hub unless it gains private dependencies.
 7. Use the proposed monitoring boundary and enable paid Defender or Sentinel capabilities only through an explicit profile.
+8. Use the proposed naming/tagging contract, regional default, and cost-ownership controls.
 
 ## Change process
 
