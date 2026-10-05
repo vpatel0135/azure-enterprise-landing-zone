@@ -10,7 +10,7 @@ This roadmap tracks the complete portfolio outcome. Checkmarks require evidence 
 - [x] Propose the resource hierarchy and subscription model.
 - [x] Propose the identity and access model.
 - [ ] Approve or revise the proposed decisions.
-- [ ] Decide governance and Azure Policy strategy.
+- [x] Propose governance and Azure Policy strategy.
 - [ ] Decide networking, DNS, ingress, and egress strategy.
 - [ ] Decide logging, monitoring, security, and retention strategy.
 - [ ] Decide naming, tagging, regional placement, and cost controls.

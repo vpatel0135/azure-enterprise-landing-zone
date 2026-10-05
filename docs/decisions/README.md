@@ -18,6 +18,7 @@ Architecture decision records (ADRs) capture consequential choices, alternatives
 | [ADR-0001](0001-use-terraform.md) | Infrastructure-as-code tool | Proposed | Terraform |
 | [ADR-0002](0002-resource-organization.md) | Management groups, subscriptions, and deployment profiles | Proposed | Archetype-aligned hierarchy with an enterprise target and constrained lab profile |
 | [ADR-0003](0003-identity-and-access.md) | Human, automation, workload, and emergency identities | Proposed | Group-based access, OIDC, managed identities, PIM where licensed, and emergency accounts |
+| [ADR-0004](0004-policy-governance.md) | Azure Policy governance and exceptions | Proposed | Layered initiatives, built-ins first, audit-to-enforce rollout, and expiring exemptions |
 
 ## Review checklist
 
@@ -39,6 +40,7 @@ The following choices require repository-owner confirmation before implementatio
 2. Use the proposed archetype-aligned management-group hierarchy.
 3. Treat the multi-subscription model as authoritative and the single-subscription model only as a lab convenience.
 4. Use the proposed identity separation and accept that PIM and Conditional Access depend on licensing.
+5. Use the proposed policy lifecycle and exemption process.
 
 ## Change process
 
