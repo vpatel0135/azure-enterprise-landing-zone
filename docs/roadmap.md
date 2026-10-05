@@ -14,6 +14,7 @@ This roadmap tracks the complete portfolio outcome. Checkmarks require evidence 
 - [x] Propose networking, DNS, ingress, and egress strategy.
 - [x] Propose logging, monitoring, security, and retention strategy.
 - [x] Propose naming, tagging, regional placement, and cost controls.
+- [x] Propose repository, Terraform state, testing, and CI/CD strategy.
 
 ## 2. Repository foundation
 

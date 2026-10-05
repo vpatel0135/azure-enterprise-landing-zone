@@ -82,6 +82,7 @@ Major decisions will be made in this order because later choices depend on earli
 | D008 | Monitoring and security | Central platform workspace with selective collection, explicit retention, workload observability boundaries, and opt-in paid security plans | Proposed ([ADR-0006](decisions/0006-security-monitoring.md)) |
 | D009 | First workload | Choose either the wedding or honeymoon website after inspecting both | Open |
 | D010 | Naming, tagging, region, and cost | Stable names with service-specific normalization; governed metadata; East US 2 example default; subscription budgets and cost ownership | Proposed ([ADR-0007](decisions/0007-resource-standards-and-cost.md)) |
+| D011 | Repository, state, and delivery | Monorepo with isolated Terraform roots/state, OIDC plan/apply identities, pull-request validation, and protected applies | Proposed ([ADR-0008](decisions/0008-repository-state-and-delivery.md)) |
 
 ## Current boundary
 
