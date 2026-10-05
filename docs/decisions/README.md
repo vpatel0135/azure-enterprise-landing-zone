@@ -20,6 +20,7 @@ Architecture decision records (ADRs) capture consequential choices, alternatives
 | [ADR-0003](0003-identity-and-access.md) | Human, automation, workload, and emergency identities | Proposed | Group-based access, OIDC, managed identities, PIM where licensed, and emergency accounts |
 | [ADR-0004](0004-policy-governance.md) | Azure Policy governance and exceptions | Proposed | Layered initiatives, built-ins first, audit-to-enforce rollout, and expiring exemptions |
 | [ADR-0005](0005-network-connectivity.md) | Network topology, DNS, ingress, and egress | Proposed | Regional hub-and-spoke for connected workloads with optional paid services and isolated Online workloads |
+| [ADR-0006](0006-security-monitoring.md) | Security posture, centralized logging, alerting, and SIEM | Proposed | Central platform monitoring with selective collection and explicitly opt-in paid protections |
 
 ## Review checklist
 
@@ -43,6 +44,7 @@ The following choices require repository-owner confirmation before implementatio
 4. Use the proposed identity separation and accept that PIM and Conditional Access depend on licensing.
 5. Use the proposed policy lifecycle and exemption process.
 6. Use traditional hub-and-spoke as the default connected topology while keeping the public website disconnected from the hub unless it gains private dependencies.
+7. Use the proposed monitoring boundary and enable paid Defender or Sentinel capabilities only through an explicit profile.
 
 ## Change process
 

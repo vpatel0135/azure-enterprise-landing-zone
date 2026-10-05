@@ -12,7 +12,7 @@ This roadmap tracks the complete portfolio outcome. Checkmarks require evidence 
 - [ ] Approve or revise the proposed decisions.
 - [x] Propose governance and Azure Policy strategy.
 - [x] Propose networking, DNS, ingress, and egress strategy.
-- [ ] Decide logging, monitoring, security, and retention strategy.
+- [x] Propose logging, monitoring, security, and retention strategy.
 - [ ] Decide naming, tagging, regional placement, and cost controls.
 
 ## 2. Repository foundation
