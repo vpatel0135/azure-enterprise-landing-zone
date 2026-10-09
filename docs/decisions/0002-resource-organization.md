@@ -1,7 +1,7 @@
 # ADR-0002: Organize the Platform by Archetype and Subscription Boundary
 
-- **Status:** Proposed
-- **Date:** 2026-10-05
+- **Status:** Accepted
+- **Date:** 2026-10-09
 - **Decision owner:** Repository maintainer
 
 ## Context
@@ -35,8 +35,8 @@ Tenant Root Group
     │       └── (subscription only when legacy identity services are required)
     ├── Landing Zones
     │   ├── Online
-    │   │   ├── sub-website-nonprod
-    │   │   └── sub-website-prod
+    │   │   ├── sub-webportfolio-nonprod
+    │   │   └── sub-webportfolio-prod
     │   └── Corp
     │       └── (future internal or hybrid-connected workloads)
     ├── Sandboxes
@@ -72,9 +72,9 @@ The top-level `alz-example` management group provides a safe boundary for the re
 
 ### Workload subscriptions
 
-Production and non-production website environments use separate subscriptions in the enterprise target. This isolates access, policy exceptions, quotas, billing, and deployment impact. Both remain under `Online`, because management groups represent workload archetypes rather than lifecycle environments.
+Simple, commonly governed websites start in a shared application-portfolio product line with separate production and non-production subscriptions. Each application receives its own resource groups, deployment identity, state, budget attribution, and RBAC boundary within the appropriate subscription. Both subscriptions remain under `Online`, because management groups represent workload archetypes rather than lifecycle environments.
 
-A single application landing zone comprises the website's production and non-production subscriptions together; it is not synonymous with one subscription.
+The initial portfolio contains the Wedding and Honeymoon websites. An application moves to dedicated environment subscriptions when ownership, policy, compliance, quota, budget, criticality, or blast-radius requirements differ materially from the shared portfolio. Subscription names express portfolio, governance, and lifecycle rather than Azure region; a subscription can contain regional deployments in more than one Azure location.
 
 ## Deployment profiles
 
@@ -85,7 +85,7 @@ The repository will expose profiles without pretending that they provide identic
 The authoritative architecture:
 
 - deploys the full management-group hierarchy;
-- expects separate Management, Connectivity, website production, and website non-production subscriptions;
+- expects separate Management, Connectivity, web-portfolio production, and web-portfolio non-production subscriptions;
 - leaves Identity, Sandbox, and future workload subscriptions optional;
 - applies policy at management-group scope; and
 - keeps independently managed layers in separate Terraform state files.

@@ -1,7 +1,7 @@
 # ADR-0004: Govern with Layered Policy Initiatives and Expiring Exemptions
 
-- **Status:** Proposed
-- **Date:** 2026-10-05
+- **Status:** Accepted
+- **Date:** 2026-10-09
 - **Decision owner:** Repository maintainer
 
 ## Context

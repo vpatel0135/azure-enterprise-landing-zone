@@ -15,14 +15,14 @@ Architecture decision records (ADRs) capture consequential choices, alternatives
 
 | ADR | Topic | Status | Working selection |
 |---|---|---|---|
-| [ADR-0001](0001-use-terraform.md) | Infrastructure-as-code tool | Proposed | Terraform |
-| [ADR-0002](0002-resource-organization.md) | Management groups, subscriptions, and deployment profiles | Proposed | Archetype-aligned hierarchy with an enterprise target and constrained lab profile |
-| [ADR-0003](0003-identity-and-access.md) | Human, automation, workload, and emergency identities | Proposed | Group-based access, OIDC, managed identities, PIM where licensed, and emergency accounts |
-| [ADR-0004](0004-policy-governance.md) | Azure Policy governance and exceptions | Proposed | Layered initiatives, built-ins first, audit-to-enforce rollout, and expiring exemptions |
-| [ADR-0005](0005-network-connectivity.md) | Network topology, DNS, ingress, and egress | Proposed | Regional hub-and-spoke for connected workloads with optional paid services and isolated Online workloads |
-| [ADR-0006](0006-security-monitoring.md) | Security posture, centralized logging, alerting, and SIEM | Proposed | Central platform monitoring with selective collection and explicitly opt-in paid protections |
-| [ADR-0007](0007-resource-standards-and-cost.md) | Naming, tagging, regional placement, and cost ownership | Proposed | Stable service-aware names, governed tags, an East US 2 example default, and subscription budgets |
-| [ADR-0008](0008-repository-state-and-delivery.md) | Repository structure, Terraform state, testing, and delivery | Proposed | Monorepo, isolated state, federated identities, PR validation, and protected applies |
+| [ADR-0001](0001-use-terraform.md) | Infrastructure-as-code tool | Accepted | Terraform |
+| [ADR-0002](0002-resource-organization.md) | Management groups, subscriptions, and deployment profiles | Accepted | Archetype hierarchy with shared web-portfolio prod/nonprod subscriptions and a constrained lab profile |
+| [ADR-0003](0003-identity-and-access.md) | Human, automation, workload, and emergency identities | Accepted | Group-based access, OIDC, managed identities, optional PIM, and documented emergency access |
+| [ADR-0004](0004-policy-governance.md) | Azure Policy governance and exceptions | Accepted | Layered initiatives, built-ins first, audit-to-enforce rollout, and expiring exemptions |
+| [ADR-0005](0005-network-connectivity.md) | Network topology, DNS, ingress, and egress | Accepted | Low-cost regional hub and demo spoke with paid services optional and Online workloads isolated by default |
+| [ADR-0006](0006-security-monitoring.md) | Security posture, centralized logging, alerting, and SIEM | Accepted | Central platform monitoring, workload-owned Application Insights, and opt-in paid protections |
+| [ADR-0007](0007-resource-standards-and-cost.md) | Naming, tagging, regional placement, and cost ownership | Accepted | Compact service-aware names, governed tags, East US 2 default, and subscription budgets |
+| [ADR-0008](0008-repository-state-and-delivery.md) | Repository structure, Terraform state, testing, and delivery | Accepted | Platform monorepo, separate application repos, isolated state, OIDC identities, and protected applies |
 
 ## Review checklist
 
@@ -36,19 +36,9 @@ Before changing an ADR to **Accepted**, confirm that:
 - validation evidence can be produced during implementation; and
 - the choice does not publish personal tenant details or credentials.
 
-## Pending review
+## Review status
 
-The following choices require repository-owner confirmation before implementation begins:
-
-1. Use Terraform rather than Bicep as the authoritative IaC language.
-2. Use the proposed archetype-aligned management-group hierarchy.
-3. Treat the multi-subscription model as authoritative and the single-subscription model only as a lab convenience.
-4. Use the proposed identity separation and accept that PIM and Conditional Access depend on licensing.
-5. Use the proposed policy lifecycle and exemption process.
-6. Use traditional hub-and-spoke as the default connected topology while keeping the public website disconnected from the hub unless it gains private dependencies.
-7. Use the proposed monitoring boundary and enable paid Defender or Sentinel capabilities only through an explicit profile.
-8. Use the proposed naming/tagging contract, regional default, and cost-ownership controls.
-9. Use the proposed monorepo, state boundaries, test layers, and deployment promotion model.
+The repository owner completed the guided review and explicitly accepted ADRs 0001–0008 on 2026-10-09. Implementation can now rely on these decisions. Website hosting remains a separate workload-onboarding decision.
 
 ## Change process
 

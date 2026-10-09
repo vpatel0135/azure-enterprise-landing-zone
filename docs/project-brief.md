@@ -68,22 +68,22 @@ Major decisions will be made in this order because later choices depend on earli
 10. Workload onboarding model
 11. Website hosting architecture and deployment
 
-## Open decisions
+## Decision register
 
 | ID | Decision | Working recommendation | Status |
 |---|---|---|---|
-| D001 | Infrastructure-as-code tool | Terraform as the authoritative implementation | Proposed ([ADR-0001](decisions/0001-use-terraform.md)) |
-| D002 | Deployment scope | Make the multi-subscription enterprise profile authoritative and provide an explicitly limited single-subscription lab profile | Proposed ([ADR-0002](decisions/0002-resource-organization.md)) |
-| D003 | Management-group hierarchy | Archetype-aligned hierarchy based on the Azure landing-zone reference architecture | Proposed ([ADR-0002](decisions/0002-resource-organization.md)) |
-| D004 | Subscription strategy | Separate platform and application environments in the target state; provide an explicitly limited single-subscription lab profile | Proposed ([ADR-0002](decisions/0002-resource-organization.md)) |
-| D005 | Identity model | Microsoft Entra ID groups for humans, federated workload identities for automation, managed identities for Azure resources, and monitored emergency access | Proposed ([ADR-0003](decisions/0003-identity-and-access.md)) |
-| D006 | Connectivity model | Traditional regional hub-and-spoke for connected workloads; Online workloads remain disconnected unless required; paid transit and inspection are optional profiles | Proposed ([ADR-0005](decisions/0005-network-connectivity.md)) |
-| D007 | Policy baseline | Layered initiatives composed primarily from built-ins, staged from audit to enforcement, with time-bound exemptions | Proposed ([ADR-0004](decisions/0004-policy-governance.md)) |
-| D008 | Monitoring and security | Central platform workspace with selective collection, explicit retention, workload observability boundaries, and opt-in paid security plans | Proposed ([ADR-0006](decisions/0006-security-monitoring.md)) |
+| D001 | Infrastructure-as-code tool | Terraform as the authoritative implementation | Accepted ([ADR-0001](decisions/0001-use-terraform.md)) |
+| D002 | Deployment scope | Multi-subscription enterprise target with an explicitly limited single-subscription lab profile | Accepted ([ADR-0002](decisions/0002-resource-organization.md)) |
+| D003 | Management-group hierarchy | Archetype-aligned hierarchy based on the Azure landing-zone reference architecture | Accepted ([ADR-0002](decisions/0002-resource-organization.md)) |
+| D004 | Subscription strategy | Shared web-portfolio production and non-production subscriptions, with graduation criteria for dedicated workload subscriptions | Accepted ([ADR-0002](decisions/0002-resource-organization.md)) |
+| D005 | Identity model | Entra groups for humans, separate OIDC plan/apply identities, system-assigned runtime identity by default, optional PIM, and documented emergency access | Accepted ([ADR-0003](decisions/0003-identity-and-access.md)) |
+| D006 | Connectivity model | Low-cost regional hub and demo spoke; Online workloads disconnected unless required; paid transit and inspection optional | Accepted ([ADR-0005](decisions/0005-network-connectivity.md)) |
+| D007 | Policy baseline | Layered initiatives composed primarily from built-ins, staged from audit to enforcement, with time-bound exemptions | Accepted ([ADR-0004](decisions/0004-policy-governance.md)) |
+| D008 | Monitoring and security | Central platform workspace, workload-owned Application Insights, selective collection, and opt-in paid security plans | Accepted ([ADR-0006](decisions/0006-security-monitoring.md)) |
 | D009 | First workload | Choose either the wedding or honeymoon website after inspecting both | Open |
-| D010 | Naming, tagging, region, and cost | Stable names with service-specific normalization; governed metadata; East US 2 example default; subscription budgets and cost ownership | Proposed ([ADR-0007](decisions/0007-resource-standards-and-cost.md)) |
-| D011 | Repository, state, and delivery | Monorepo with isolated Terraform roots/state, OIDC plan/apply identities, pull-request validation, and protected applies | Proposed ([ADR-0008](decisions/0008-repository-state-and-delivery.md)) |
+| D010 | Naming, tagging, region, and cost | Compact `<type>-<region><env>-<workload>-<nn>` names; governed metadata; East US 2 default; subscription budgets | Accepted ([ADR-0007](decisions/0007-resource-standards-and-cost.md)) |
+| D011 | Repository, state, and delivery | Platform monorepo, separate application repos, isolated state, OIDC plan/apply identities, PR validation, and protected applies | Accepted ([ADR-0008](decisions/0008-repository-state-and-delivery.md)) |
 
 ## Current boundary
 
-This brief deliberately does not select detailed Azure services yet. The next decision is the infrastructure-as-code model, because it shapes repository layout, state management, testing, and the deployment workflow.
+The platform direction is accepted. The next implementation phase establishes the repository foundation and remote-state bootstrap before deploying the organization, management, connectivity, and workload-foundation layers. Website hosting remains open until the candidate application repositories are inspected.

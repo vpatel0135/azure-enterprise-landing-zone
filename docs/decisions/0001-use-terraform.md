@@ -1,7 +1,7 @@
 # ADR-0001: Use Terraform as the Authoritative Infrastructure-as-Code Tool
 
-- **Status:** Proposed
-- **Date:** 2026-10-05
+- **Status:** Accepted
+- **Date:** 2026-10-09
 - **Decision owner:** Repository maintainer
 
 ## Context

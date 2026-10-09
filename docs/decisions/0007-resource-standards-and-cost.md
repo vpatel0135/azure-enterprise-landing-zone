@@ -1,7 +1,7 @@
 # ADR-0007: Standardize Resource Identity, Placement, and Cost Ownership
 
-- **Status:** Proposed
-- **Date:** 2026-10-05
+- **Status:** Accepted
+- **Date:** 2026-10-09
 - **Decision owner:** Repository maintainer
 
 ## Context
@@ -27,32 +27,35 @@ Adopt a service-aware naming module, a small governed tag contract, explicit all
 
 ### Naming contract
 
-The human-readable default pattern is:
+The compact human-readable default pattern is:
 
 ```text
-<resource-type>-<workload-or-purpose>-<environment>-<region>-<instance>
+<resource-type>-<region><environment>-<workload-code>-<instance>
 ```
 
 Examples:
 
 ```text
-rg-platform-management-prod-eus2-001
-law-platform-prod-eus2-001
-vnet-connectivity-prod-eus2-001
-rg-wedding-nonprod-eus2-001
+rg-eus2p-wed-01
+asp-eus2p-wed-01
+rg-eus2n-hny-01
+law-eus2p-mgmt-01
+vnet-eus2p-conn-01
 ```
 
 Components are included only when they provide stable, useful distinction. Not every Azure resource uses every component.
 
 | Component | Example | Rule |
 |---|---|---|
-| Resource type | `rg`, `law`, `vnet` | Use a documented Azure abbreviation |
-| Workload/purpose | `platform`, `connectivity`, `wedding` | Short, non-sensitive, and stable |
-| Environment | `prod`, `nonprod`, `sandbox` | Use a controlled vocabulary |
-| Region | `eus2` | Use a repository-owned short-code map |
-| Instance | `001` | Fixed-width sequence only when multiple instances are expected |
+| Resource type | `rg`, `asp`, `law`, `vnet` | Use an unambiguous documented Azure abbreviation |
+| Region | `eus2` | Use a repository-owned code mapped directly to an Azure region |
+| Environment | `p`, `n`, `d`, `t`, `s`, `x` | Append one controlled lifecycle code to the region code |
+| Workload code | `wed`, `hny`, `mgmt`, `conn` | Use a centrally registered, short, stable application or platform-capability code |
+| Instance | `01` | Use a two-digit sequence maintained independently per resource type |
 
-For services that prohibit hyphens, require lowercase alphanumeric characters, or need global uniqueness, the naming module normalizes the readable components and adds a deterministic, non-secret suffix. Random names that change on every deployment are avoided unless the resource lifecycle requires them.
+For services that prohibit hyphens or require lowercase alphanumeric characters, the naming module removes separators while preserving the component order, for example `steus2pwed01`. When Azure reports a global-name collision, the deployer increments that resource type's instance number and replans, such as `steus2pwed02`. Terraform does not probe and increment names automatically because availability can change between plan and apply.
+
+Team ownership is not encoded in the name because teams change. It is recorded in the `owner-group` tag and RBAC configuration. The repository maintains controlled registries for region, environment, workload, and resource-type codes.
 
 Names must not contain:
 
@@ -70,7 +73,7 @@ Names must not contain:
 | Management-group ID | Stable lowercase identifier such as `alz-example-platform` |
 | Management-group display name | Friendly label such as `Platform` |
 | Subscription display name | Function/workload and environment, such as `Website Production` |
-| Resource group | `rg-<purpose>-<environment>-<region>-<instance>` |
+| Resource group | `rg-<region><environment>-<workload-code>-<instance>` |
 | Terraform state key | Layer and environment, not subscription display name |
 
 Automation uses stable IDs rather than display names where Azure provides both.
@@ -85,7 +88,7 @@ Use lowercase tag keys and controlled lowercase values where practical. Tags sup
 |---|---|---|
 | `application` | `wedding-site` | Workload grouping |
 | `environment` | `prod` | Lifecycle context |
-| `owner-group` | `sg-website-prod-operators` | Accountable group, not a person's contact data |
+| `owner-group` | `sg-wedding-prod-operators` | Accountable group, not a person's contact data |
 | `cost-center` | `portfolio-demo` | Cost allocation category |
 | `managed-by` | `terraform` | Expected change path |
 | `criticality` | `low`, `medium`, `high`, `mission-critical` | Operational prioritization |

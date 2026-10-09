@@ -1,7 +1,7 @@
 # ADR-0003: Separate Human, Deployment, Workload, and Emergency Identities
 
-- **Status:** Proposed
-- **Date:** 2026-10-05
+- **Status:** Accepted
+- **Date:** 2026-10-09
 - **Decision owner:** Repository maintainer
 
 ## Context
@@ -46,18 +46,20 @@ Proposed group model:
 | Group | Scope | Standing access | Elevated access |
 |---|---|---|---|
 | `sg-alz-platform-readers` | `alz-example` | Reader | None |
-| `sg-alz-platform-operators` | Relevant platform subscriptions | Least-privilege operational roles | Contributor through PIM when required |
-| `sg-alz-policy-admins` | `alz-example` | Reader | Resource Policy Contributor through PIM |
-| `sg-alz-access-admins` | Selected platform scopes | Reader | User Access Administrator through PIM |
-| `sg-website-nonprod-operators` | Website non-production subscription | Contributor without role-assignment control | None by default |
-| `sg-website-prod-readers` | Website production subscription | Reader | None |
-| `sg-website-prod-operators` | Website production subscription | Reader | Contributor through PIM |
+| `sg-alz-platform-operators` | Relevant platform subscriptions | Least-privilege operational roles | Optional controlled elevation |
+| `sg-alz-policy-admins` | `alz-example` | Reader | Optional Resource Policy Contributor elevation |
+| `sg-alz-access-admins` | Selected platform scopes | Reader | Optional User Access Administrator elevation |
+| `sg-webportfolio-prod-readers` | Web-portfolio production subscription | Reader | None |
+| `sg-wedding-nonprod-operators` | Wedding non-production resource group | Contributor without role-assignment control | None by default |
+| `sg-wedding-prod-operators` | Wedding production resource group | Contributor without role-assignment control | Optional controlled elevation |
+| `sg-honeymoon-nonprod-operators` | Honeymoon non-production resource group | Contributor without role-assignment control | None by default |
+| `sg-honeymoon-prod-operators` | Honeymoon production resource group | Contributor without role-assignment control | Optional controlled elevation |
 
 Group names are defaults and will be parameterized. No real user names or email addresses belong in committed configuration.
 
 ### Privileged Identity Management
 
-The `enterprise` profile assumes Microsoft Entra ID P2 or Entra ID Governance for just-in-time elevation of privileged groups and roles. Activation should require MFA, justification, a short duration, and approval for production-impacting roles.
+PIM is an optional enterprise enhancement rather than a deployment prerequisite. When an organization has Microsoft Entra ID P2 or Entra ID Governance, privileged groups and roles should use just-in-time activation with MFA, justification, short duration, and approval for production-impacting roles.
 
 PIM is a documented optional capability in the `lab` profile. Without an appropriate license, the lab uses the narrowest practical standing assignments, security defaults for baseline protection, and explicit manual review. This is a cost concession, not an equivalent security control.
 
@@ -77,22 +79,26 @@ Proposed automation identities:
 |---|---|---|
 | `id-alz-platform-plan` | Validate and plan platform changes | Reader plus policy-specific read permissions |
 | `id-alz-platform-apply` | Apply approved platform changes | Required management-group and platform-subscription roles |
-| `id-website-nonprod-deploy` | Deploy non-production website | Website non-production subscription or narrower |
-| `id-website-prod-deploy` | Deploy approved production website | Website production resource group or service scope |
+| `id-wed-n-plan` / `id-wed-n-apply` | Plan and deploy Wedding non-production | Wedding non-production resource group |
+| `id-wed-p-plan` / `id-wed-p-apply` | Plan and deploy Wedding production | Wedding production resource group |
+| `id-hny-n-plan` / `id-hny-n-apply` | Plan and deploy Honeymoon non-production | Honeymoon non-production resource group |
+| `id-hny-p-plan` / `id-hny-p-apply` | Plan and deploy Honeymoon production | Honeymoon production resource group |
 
 Broad roles might be temporarily necessary during bootstrap. Any bootstrap elevation must be documented, time-bound, and removed or reduced after role assignments and policy resources exist.
 
 ### Runtime workload identities
 
-- Prefer system-assigned managed identities when the identity lifecycle should exactly match one Azure resource.
-- Prefer user-assigned managed identities when multiple resources need the same stable identity or when identity lifecycle must be independent.
+- Use system-assigned managed identities by default when a runtime workload actually needs Azure access and the identity lifecycle should match one resource.
+- Use a dedicated user-assigned managed identity per application only when multiple components intentionally need the same stable access or the identity lifecycle must be independent.
+- Do not create a runtime identity for a purely static workload that does not access protected Azure services.
+- Never share a runtime identity between applications.
 - Do not use storage keys, database passwords, or service-principal secrets when managed identity is supported.
 - Grant runtime identities data-plane roles at the individual resource or resource-group scope required by the workload.
 - Store unavoidable secrets in Azure Key Vault and grant access through Azure RBAC.
 
 ### Emergency access
 
-The enterprise target requires at least two cloud-only emergency access accounts:
+The enterprise target documents the recommendation for at least two cloud-only emergency access accounts:
 
 - use the tenant's `onmicrosoft.com` domain and do not depend on federation;
 - hold permanent active Global Administrator because they exist for recovery when normal elevation paths fail;
@@ -101,7 +107,7 @@ The enterprise target requires at least two cloud-only emergency access accounts
 - generate alerts for any sign-in or credential change; and
 - be tested at least every 90 days with the test recorded.
 
-Emergency credentials, authentication devices, and recovery material are never created or stored by this public repository. The code may deploy monitoring around the accounts only after their object IDs are supplied privately.
+Emergency credentials, authentication devices, and recovery material are never created or stored by this public repository. The personal lab does not create extra accounts merely for demonstration; it reports the missing enterprise control. The code may deploy monitoring around existing accounts only after their object IDs are supplied privately.
 
 ## Authorization boundaries
 

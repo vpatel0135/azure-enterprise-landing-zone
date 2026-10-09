@@ -1,7 +1,7 @@
 # ADR-0005: Use Requirement-Driven Regional Hub-and-Spoke Connectivity
 
-- **Status:** Proposed
-- **Date:** 2026-10-05
+- **Status:** Accepted
+- **Date:** 2026-10-09
 - **Decision owner:** Repository maintainer
 
 ## Context
@@ -110,6 +110,17 @@ Adds VPN or ExpressRoute gateway connectivity to the secured or unfiltered hub. 
 
 Example documentation ranges will use RFC 1918 addresses and will not reveal a real corporate network plan.
 
+The initial lab allocation is:
+
+| Allocation | CIDR |
+|---|---|
+| East US 2 regional block | `10.100.0.0/16` |
+| Hub VNet | `10.100.0.0/22` |
+| Reserved shared-services space | `10.100.4.0/22` through `10.100.12.0/22` |
+| Demonstration non-production spoke | `10.100.16.0/20` |
+
+Future regions receive separate non-overlapping regional blocks; `10.110.0.0/16` is reserved as the example next-region allocation.
+
 ## DNS
 
 - Public website DNS remains authoritative in the selected public DNS/edge service and is decided with the workload architecture.
@@ -150,8 +161,8 @@ The code will separate no/low-fixed-cost constructs from services with ongoing c
 
 | Capability | Default lab state | Enterprise option |
 |---|---|---|
-| Hub VNet and route-table definitions | Deployable | Enabled when connected workloads exist |
-| VNet peering | Only for a connected-spoke demonstration | Enabled per approved spoke |
+| Hub VNet | Enabled | Enabled when connected workloads exist |
+| Demonstration non-production spoke and peering | Enabled | Enabled per approved spoke |
 | Azure Firewall/NVA | Off | `secured-hub` profile |
 | VPN/ExpressRoute gateway | Off | `hybrid` profile |
 | Azure Virtual WAN | Off | Future architecture for scale requirements |
@@ -201,6 +212,8 @@ Rejected. It weakens ownership and blast-radius boundaries and conflicts with su
 - Do not create private endpoints without private DNS resolution and an identified client path.
 - Export intended routes, peerings, DNS links, and public endpoints as reviewable inventories.
 - Keep firewall, gateways, resolvers, NAT gateways, and DDoS plans disabled unless their profile is selected.
+- Do not create direct production-to-non-production or spoke-to-spoke peering by default.
+- Do not add forced-tunnel routes when the inspection appliance is disabled.
 
 ## Validation criteria
 

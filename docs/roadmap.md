@@ -9,7 +9,7 @@ This roadmap tracks the complete portfolio outcome. Checkmarks require evidence 
 - [x] Propose the infrastructure-as-code choice.
 - [x] Propose the resource hierarchy and subscription model.
 - [x] Propose the identity and access model.
-- [ ] Approve or revise the proposed decisions.
+- [x] Approve or revise the proposed decisions.
 - [x] Propose governance and Azure Policy strategy.
 - [x] Propose networking, DNS, ingress, and egress strategy.
 - [x] Propose logging, monitoring, security, and retention strategy.

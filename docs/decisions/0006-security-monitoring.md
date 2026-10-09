@@ -1,7 +1,7 @@
 # ADR-0006: Centralize Platform Visibility and Make Paid Security Explicit
 
-- **Status:** Proposed
-- **Date:** 2026-10-05
+- **Status:** Accepted
+- **Date:** 2026-10-09
 - **Decision owner:** Repository maintainer
 
 ## Context
@@ -25,7 +25,7 @@ Security posture management, threat protection, SIEM, and operational monitoring
 
 Deploy one central Log Analytics workspace in the Management subscription for the initial single-tenant, single-region scenario. Use it for platform operations and selected security-relevant data.
 
-Do not require all application telemetry to use the central workspace. Workload teams can use workspace-based Application Insights and, when access, retention, data residency, or cost allocation requires it, a workload-owned Log Analytics workspace. Central policy collects only the platform and security signals that the platform team is accountable for.
+Do not require all application telemetry to use the central workspace. Each onboarded website uses a separate workspace-based Application Insights resource per environment when the selected hosting architecture supports useful instrumentation. Small websites in the same portfolio and environment can share a workload-owned Log Analytics workspace while retaining separate Application Insights resources. Central policy collects only the platform and security signals that the platform team is accountable for.
 
 ### Data ownership boundary
 
@@ -121,6 +121,8 @@ The website onboarding must define:
 - a small dashboard or workbook backed by real queries.
 
 Application logs must not record secrets, authentication tokens, or unnecessary personal data.
+
+Purely static sites can begin with privacy-reviewed browser telemetry and an availability test. App Service, Functions, APIs, and other server-side components use Application Insights request, dependency, failure, and deployment telemetry. Application Insights resources are deployed during workload onboarding rather than before an application exists.
 
 ## Cost controls
 

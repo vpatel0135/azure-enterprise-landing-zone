@@ -1,12 +1,12 @@
 # ADR-0008: Isolate State and Separate Validation from Deployment
 
-- **Status:** Proposed
-- **Date:** 2026-10-05
+- **Status:** Accepted
+- **Date:** 2026-10-09
 - **Decision owner:** Repository maintainer
 
 ## Context
 
-The landing zone and its first workload have different owners, permissions, change rates, and failure domains. Storing all resources in one Terraform state or granting one GitHub identity permission to plan and apply everything would make the example simple but would undermine the operating model established by earlier decisions.
+The landing zone and onboarded applications have different owners, permissions, change rates, repositories, and failure domains. Storing all resources in one Terraform state or granting one GitHub identity permission to plan and apply everything would make the example simple but would undermine the operating model established by earlier decisions.
 
 The repository also needs useful checks without requiring Azure credentials for every contribution. Tests that create infrastructure can incur costs and leave resources behind if cleanup fails, so they need a distinct execution path and disposable scope.
 
@@ -24,7 +24,7 @@ The repository also needs useful checks without requiring Azure credentials for 
 
 ## Decision
 
-Use a **monorepo** containing documentation, reusable Terraform modules, independently deployable root modules, tests, and GitHub Actions workflows.
+Use a **platform monorepo** containing landing-zone documentation, reusable Terraform modules, independently deployable platform roots, workload-foundation onboarding configuration, tests, and GitHub Actions workflows. Keep Wedding, Honeymoon, and future application source code and application-specific infrastructure in their own repositories.
 
 Use separate Azure Blob state keys and separate deployment identities for privileged platform layers and workload environments. Pull requests run offline checks universally and authenticated read-only plans only in trusted contexts. Applies run only after merge or explicit dispatch through protected GitHub environments.
 
@@ -48,15 +48,14 @@ Use separate Azure Blob state keys and separate deployment identities for privil
 │   ├── naming/
 │   ├── monitoring/
 │   ├── connectivity/
-│   └── application-landing-zone/
+│   └── workload-foundation/
 ├── platform/
 │   ├── organization/
 │   ├── management/
 │   └── connectivity/
-├── workloads/
-│   └── website/
-│       ├── nonprod/
-│       └── prod/
+├── workload-foundations/
+│   ├── wedding/
+│   └── honeymoon/
 ├── tests/
 │   ├── policy/
 │   ├── repository/
@@ -67,7 +66,7 @@ Use separate Azure Blob state keys and separate deployment identities for privil
 └── scripts/
 ```
 
-Reusable modules contain no environment-specific backend configuration. Root modules compose them with profile and environment inputs. Production and non-production use the same module source at the same reviewed commit; only controlled input values and state targets differ.
+Reusable modules contain no environment-specific backend configuration. Root modules compose them with profile and environment inputs. Production and non-production use the same module source at the same reviewed commit; only controlled input values and state targets differ. Application repositories deploy into platform-created resource groups through their own OIDC identities and independently protected state.
 
 ## State boundaries
 
@@ -79,8 +78,9 @@ Proposed independently managed states:
 | `organization` | Management groups, policy definitions/initiatives/assignments, selected organization RBAC | Management-group scopes |
 | `management` | Central monitoring and management resources | Management subscription |
 | `connectivity` | Hub, DNS, peerings, and selected network services | Connectivity and approved spoke scopes |
-| `website-nonprod` | Non-production application landing-zone and hosting resources | Website non-production subscription |
-| `website-prod` | Production application landing-zone and hosting resources | Website production subscription |
+| `workload-foundations` | Application resource groups, onboarding RBAC, and governed interfaces | Web-portfolio subscriptions and application resource groups |
+
+Application repositories own separate state for each application environment, such as `wedding-nonprod`, `wedding-prod`, `honeymoon-nonprod`, and `honeymoon-prod`. They do not own or recreate the platform-created resource groups.
 
 The final split can add a dedicated identity/RBAC state if implementation proves that Entra permissions or ownership separation require it. States are not split merely by resource type; each boundary must correspond to privilege, ownership, lifecycle, or blast radius.
 
@@ -90,7 +90,7 @@ The final split can add a dedicated identity/RBAC state if implementation proves
 - Authenticate to the AzureRM backend with Microsoft Entra ID.
 - Disable public access patterns that are not required by the selected runner architecture.
 - Enable appropriate storage data protection such as versioning and soft-delete settings after testing their recovery behavior.
-- Grant state access per root module and deployment identity; workload pipelines cannot read platform state broadly.
+- Grant state access per root module and deployment identity, preferably at a dedicated blob-container scope; workload pipelines cannot read platform state broadly or another application's state.
 - Do not expose entire remote-state outputs as a cross-layer integration mechanism.
 - Publish only intentionally non-sensitive interfaces, using explicit configuration or narrowly scoped outputs.
 
@@ -128,11 +128,11 @@ GitHub Actions uses OpenID Connect federated credentials. No Azure client secret
 | Offline pull-request checks | None | No Azure access |
 | Trusted platform plan | Platform plan identity | Read-only plus minimum permissions needed to evaluate configuration |
 | Approved platform apply | Platform apply identity | Narrow platform write roles |
-| Trusted non-production plan/apply | Non-production workload identities | Non-production scope only |
-| Trusted production plan | Production plan identity | Production read-only scope |
-| Approved production apply | Production apply identity | Production workload write scope only |
+| Trusted application plan | Per-application, per-environment plan identity | Read-only application scope plus required state access |
+| Approved non-production apply | Per-application non-production apply identity | Its non-production resource group only |
+| Approved production apply | Per-application production apply identity | Its production resource group only |
 
-Federated subjects are restricted to the expected repository and GitHub environment or branch. Platform and workload identities are not shared. Production and non-production identities are not shared.
+Federated subjects are restricted to the expected repository and GitHub environment or branch. Platform and workload identities are not shared. Production and non-production identities are not shared. Plan and apply identities are separate: plan receives Azure read permissions, while apply receives the narrow write permissions needed for its deployment boundary.
 
 Forked or otherwise untrusted pull requests run offline checks only. Workflows triggered by pull-request code must not automatically execute privileged code with write credentials.
 
