@@ -1,7 +1,7 @@
 locals {
   region_environment   = "${var.region_code}${var.environment_code}"
-  resource_group_name  = "rg-${local.region_environment}-state-${var.instance}"
-  storage_account_name = "st${local.region_environment}state${var.instance}"
+  resource_group_name  = "rg-${local.region_environment}-state-${var.resource_group_instance}"
+  storage_account_name = "st${local.region_environment}state${var.storage_account_instance}"
 
   required_tags = {
     application         = "terraform-state"
@@ -60,10 +60,18 @@ resource "azurerm_storage_account" "state" {
   tags = merge(var.tags, local.required_tags)
 }
 
+resource "azurerm_role_assignment" "bootstrap_state_access" {
+  scope                = azurerm_storage_account.state.id
+  role_definition_name = "Storage Blob Data Contributor"
+  principal_id         = var.bootstrap_principal_object_id
+}
+
 resource "azurerm_storage_container" "state" {
   for_each = local.state_containers
 
   name                  = each.value
   storage_account_id    = azurerm_storage_account.state.id
   container_access_type = "private"
+
+  depends_on = [azurerm_role_assignment.bootstrap_state_access]
 }

@@ -1,9 +1,12 @@
-subscription_id = "00000000-0000-0000-0000-000000000000"
-tenant_id       = "00000000-0000-0000-0000-000000000000"
+subscription_id               = "00000000-0000-0000-0000-000000000000"
+tenant_id                     = "00000000-0000-0000-0000-000000000000"
+bootstrap_principal_object_id = "00000000-0000-0000-0000-000000000000"
 
 # Increment only if Azure reports that the globally unique storage-account name
 # is unavailable. Re-run the plan after changing this value.
-instance = "01"
+storage_account_instance = "01"
+
+resource_group_instance = "01"
 
 tags = {
   project = "azure-enterprise-landing-zone"
