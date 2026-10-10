@@ -18,15 +18,15 @@ This roadmap tracks the complete portfolio outcome. Checkmarks require evidence 
 
 ## 2. Repository foundation
 
-- [ ] Connect the work to the public GitHub repository.
-- [ ] Add repository contribution, security, and license files.
-- [ ] Define Terraform and documentation directory structure.
-- [ ] Add formatting, linting, security, and documentation checks.
-- [ ] Add secret scanning and dependency update configuration.
+- [x] Connect the work to the public GitHub repository.
+- [x] Add repository contribution, security, and license files.
+- [x] Define Terraform and documentation directory structure.
+- [x] Add formatting, linting, and Terraform validation checks.
+- [x] Add secret scanning and dependency update configuration.
 
 ## 3. Platform implementation
 
-- [ ] Implement remote-state bootstrap with Microsoft Entra authentication.
+- [x] Implement remote-state bootstrap with Microsoft Entra authentication.
 - [ ] Implement management-group hierarchy.
 - [ ] Implement subscription placement and input validation.
 - [ ] Implement policy definitions, initiatives, and assignments.

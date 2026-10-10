@@ -6,7 +6,7 @@ After the platform foundation is validated, an existing personal website will be
 
 ## Project status
 
-The project is currently in the requirements and architecture-decision phase. No Azure resources are deployed yet.
+Architecture decisions 0001–0008 are accepted. Repository validation, the naming module, and the remote-state bootstrap are now being implemented. No Azure resources are deployed yet.
 
 ## Planned outcomes
 
@@ -29,4 +29,24 @@ The project is currently in the requirements and architecture-decision phase. No
 - Keep credentials, tenant identifiers, subscription identifiers, and personal information out of source control.
 - Make deployment and teardown safe, documented, and repeatable.
 
-See [the project brief](docs/project-brief.md) for the initial scenario and constraints, the [decision review workbook](docs/decision-review.md) for the choices that need approval, and the [architecture decision index](docs/decisions/README.md) for full records.
+## Repository map
+
+| Path | Purpose |
+|---|---|
+| `bootstrap/terraform-state` | Creates and migrates the Azure Storage backend |
+| `modules` | Reusable, environment-neutral Terraform modules |
+| `platform/organization` | Management groups, policy, and organization-level RBAC |
+| `platform/management` | Central monitoring and management resources |
+| `platform/connectivity` | Hub, demo spoke, peering, and shared network services |
+| `workload-foundations` | Platform-owned resource groups and application onboarding RBAC |
+| `tests` | Static, policy, repository, and opt-in integration validation |
+
+## Local prerequisites
+
+- Terraform 1.16.5
+- Azure CLI for authenticated plans and deployments
+- TFLint 0.59.1 for local linting
+
+Pull requests run formatting, offline initialization, validation, Terraform tests, linting, and secret scanning without Azure credentials. Azure-backed plans and applies will be added behind OIDC identities and protected GitHub environments.
+
+See [the project brief](docs/project-brief.md), [decision review record](docs/decision-review.md), [architecture decision index](docs/decisions/README.md), and [state-bootstrap runbook](bootstrap/terraform-state/README.md).
