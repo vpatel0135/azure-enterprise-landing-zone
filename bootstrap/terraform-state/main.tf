@@ -16,6 +16,7 @@ locals {
   state_containers = toset([
     "bootstrap",
     "connectivity",
+    "identity",
     "management",
     "organization",
     "workload-foundations",

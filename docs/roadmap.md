@@ -30,7 +30,7 @@ This roadmap tracks the complete portfolio outcome. Checkmarks require evidence 
 - [x] Implement management-group hierarchy.
 - [x] Implement subscription placement and input validation.
 - [x] Implement policy definitions, initiatives, and assignments.
-- [ ] Implement platform identity and role assignments.
+- [x] Implement platform identity and role assignments.
 - [ ] Implement management and monitoring resources.
 - [ ] Implement cost-conscious connectivity baseline.
 - [ ] Implement optional enterprise networking components.
