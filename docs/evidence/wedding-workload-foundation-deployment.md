@@ -39,3 +39,11 @@ The application repository will own application-specific resources inside these 
 - The automation plan contained 20 additions, no changes, and no deletions.
 - The automation apply created four applications, four service principals, four federated credentials, and eight narrowly scoped role assignments.
 - A second live post-apply plan reported zero drift after the automation deployment.
+- GitHub Actions run `38243508259` successfully planned the non-production application deployment.
+- GitHub Actions run `38243634465` applied and published the non-production Guest site.
+- GitHub Actions run `38243950117` successfully planned the production application deployment.
+- GitHub Actions run `38244057550` applied and published the production Guest site.
+- Azure reports both Static Web Apps on the `Free` SKU.
+- The non-production site was verified at `https://ambitious-bay-0d8f7a60f.2.azurestaticapps.net`.
+- The production site was verified at `https://gray-dune-077d6ee0f.4.azurestaticapps.net`.
+- Both deployed pages returned the expected `Our Wedding · Vivek & Siddhi` application, while the private Team application remained excluded from deployment.
