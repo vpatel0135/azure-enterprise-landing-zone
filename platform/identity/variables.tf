@@ -41,3 +41,32 @@ variable "group_member_object_ids" {
     error_message = "Every group member object ID must be a UUID."
   }
 }
+
+variable "github_repository" {
+  description = "GitHub owner/repository trusted by workload identity federation."
+  type        = string
+  default     = "vpatel0135/azure-enterprise-landing-zone"
+
+  validation {
+    condition     = can(regex("^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$", var.github_repository))
+    error_message = "github_repository must use owner/repository format."
+  }
+}
+
+variable "state_resource_group_name" {
+  description = "Resource group containing the Terraform state storage account."
+  type        = string
+  default     = "rg-eus2p-state-01"
+}
+
+variable "state_storage_account_name" {
+  description = "Storage account containing the platform Terraform state containers."
+  type        = string
+  default     = "steus2pstate01"
+}
+
+variable "enable_platform_apply_identity" {
+  description = "Create the GitHub-trusted platform write identity. This is false until its external trust and write-role blast radius receive explicit approval."
+  type        = bool
+  default     = false
+}

@@ -24,3 +24,12 @@ The repository does not create runtime managed identities until a workload needs
 5. Verify group membership and effective Azure access before removing direct bootstrap assignments.
 
 The security groups use `prevent_destroy`. Removing them requires an explicit reviewed code change so an ordinary refactor cannot silently delete the authorization boundary.
+
+## GitHub OIDC identities
+
+The same privileged state owns two secretless automation identities:
+
+- `id-alz-platform-plan` trusts only the repository's `main` branch and receives Reader plus read-only access to the organization, management, and connectivity state containers.
+- `id-alz-platform-apply` trusts only the `platform-apply` GitHub environment and receives the platform write roles plus contributor access to those three state containers. It is disabled by default because enabling it creates a persistent external write trust.
+
+Bootstrap and identity state remain human-operated. The apply identity receives no Owner, User Access Administrator, or Role Based Access Control Administrator role and therefore cannot grant itself or anyone else additional access.

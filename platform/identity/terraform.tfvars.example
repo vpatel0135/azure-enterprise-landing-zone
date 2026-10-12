@@ -4,3 +4,10 @@ management_group_name = "alz-example"
 
 # Supply privately in terraform.tfvars. Do not commit personal tenant object IDs.
 group_member_object_ids = []
+
+github_repository          = "example-owner/azure-enterprise-landing-zone"
+state_resource_group_name  = "rg-eus2p-state-01"
+state_storage_account_name = "steus2pstate01"
+
+# Enabling this grants an external GitHub environment Azure write access.
+enable_platform_apply_identity = false
