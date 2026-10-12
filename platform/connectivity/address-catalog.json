@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "regionalBlocks": {
+    "eastus2": "10.100.0.0/16",
+    "exampleNextRegionReserved": "10.110.0.0/16"
+  },
+  "allocations": [
+    {
+      "name": "East US 2 hub",
+      "cidr": "10.100.0.0/22",
+      "status": "allocated"
+    },
+    {
+      "name": "Shared-services expansion",
+      "cidr": "10.100.4.0/22",
+      "status": "reserved"
+    },
+    {
+      "name": "Demonstration non-production spoke",
+      "cidr": "10.100.16.0/20",
+      "status": "allocated"
+    }
+  ]
+}

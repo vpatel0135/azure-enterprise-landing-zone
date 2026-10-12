@@ -32,7 +32,7 @@ This roadmap tracks the complete portfolio outcome. Checkmarks require evidence 
 - [x] Implement policy definitions, initiatives, and assignments.
 - [x] Implement platform identity and role assignments.
 - [x] Implement management and monitoring resources.
-- [ ] Implement cost-conscious connectivity baseline.
+- [x] Implement cost-conscious connectivity baseline.
 - [ ] Implement optional enterprise networking components.
 
 ## 4. Automation and validation
