@@ -16,7 +16,7 @@ The approved automation extension also created:
 - private `wedding-nonproduction` and `wedding-production` Terraform state containers;
 - distinct plan and apply identities for both environments;
 - four repository-bound GitHub OIDC federated credentials;
-- Reader plus state-reader access for each plan identity; and
+- Reader on the matching resource group plus state-container Contributor access for each plan identity, because Terraform plans require blob-lease writes for state locking; and
 - resource-group Contributor plus container-scoped state-contributor access for each apply identity.
 
 Resource groups carry the approved application, environment, owner-group, cost-center, managed-by, criticality, and data-classification tags. No paid hosting resource was created in this step.

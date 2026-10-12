@@ -99,7 +99,7 @@ resource "azurerm_role_assignment" "automation_state" {
   for_each = local.automation_identities
 
   scope                            = "${local.state_storage_account_scope}/blobServices/default/containers/${each.value.state_container}"
-  role_definition_id               = "${local.subscription_scope}/providers/Microsoft.Authorization/roleDefinitions/${each.value.kind == "plan" ? "2a2b9908-6ea1-4ae2-8e65-a410df84e7d1" : "ba92f5b4-2d11-453d-a403-e96b0029c9fe"}"
+  role_definition_id               = "${local.subscription_scope}/providers/Microsoft.Authorization/roleDefinitions/ba92f5b4-2d11-453d-a403-e96b0029c9fe"
   principal_id                     = azuread_service_principal.automation[each.key].object_id
   principal_type                   = "ServicePrincipal"
   skip_service_principal_aad_check = true
