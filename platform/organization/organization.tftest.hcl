@@ -24,6 +24,21 @@ run "lab_hierarchy_and_placement" {
     condition     = output.subscription_placements.lab.management_group == "root"
     error_message = "The lab subscription must be placed directly beneath alz-example."
   }
+
+  assert {
+    condition     = output.policy_baseline.assignment_scope_management_group == "alz-example"
+    error_message = "The organizational baseline must be assigned at alz-example, not the tenant root."
+  }
+
+  assert {
+    condition     = jsondecode(azurerm_management_group_policy_assignment.organizational_baseline.parameters).locationEffect.value == "Audit"
+    error_message = "The initial location policy effect must remain Audit."
+  }
+
+  assert {
+    condition     = jsondecode(azurerm_management_group_policy_assignment.organizational_baseline.parameters).tagEffect.value == "Audit"
+    error_message = "The initial tag policy effect must remain Audit."
+  }
 }
 
 run "enterprise_rejects_shared_environment_subscription" {

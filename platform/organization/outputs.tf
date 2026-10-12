@@ -23,3 +23,14 @@ output "profile" {
   description = "Applied organization deployment profile."
   value       = var.profile
 }
+
+output "policy_baseline" {
+  description = "Non-sensitive configuration of the organizational audit baseline."
+  value = {
+    assignment_scope_management_group = local.management_group_ids.root
+    allowed_locations                 = var.allowed_locations
+    location_effect                   = var.location_policy_effect
+    tag_effect                        = var.tag_policy_effect
+    required_tag_names                = sort(tolist(var.required_tag_names))
+  }
+}

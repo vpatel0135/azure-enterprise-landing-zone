@@ -29,7 +29,7 @@ This roadmap tracks the complete portfolio outcome. Checkmarks require evidence 
 - [x] Implement remote-state bootstrap with Microsoft Entra authentication.
 - [x] Implement management-group hierarchy.
 - [x] Implement subscription placement and input validation.
-- [ ] Implement policy definitions, initiatives, and assignments.
+- [x] Implement policy definitions, initiatives, and assignments.
 - [ ] Implement platform identity and role assignments.
 - [ ] Implement management and monitoring resources.
 - [ ] Implement cost-conscious connectivity baseline.

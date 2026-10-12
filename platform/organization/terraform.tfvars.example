@@ -4,6 +4,10 @@ deployment_subscription_id = "00000000-0000-0000-0000-000000000000"
 profile             = "lab"
 lab_subscription_id = "00000000-0000-0000-0000-000000000000"
 
+allowed_locations      = ["eastus2"]
+location_policy_effect = "Audit"
+tag_policy_effect      = "Audit"
+
 # Enterprise example; use this instead of lab_subscription_id when profile is enterprise.
 # enterprise_subscription_ids = {
 #   management                  = "00000000-0000-0000-0000-000000000001"

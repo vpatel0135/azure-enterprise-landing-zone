@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "1.0.0",
+  "controls": [
+    {
+      "control": "allowed-locations",
+      "definitionType": "BuiltIn",
+      "definitionId": "e56962a6-4747-49cd-b67b-bf8b01975c4c",
+      "definitionDisplayName": "Allowed locations",
+      "observedVersion": "1.1.0",
+      "initialEffect": "Audit",
+      "scope": "alz-example"
+    },
+    {
+      "control": "required-resource-tags",
+      "definitionType": "Custom",
+      "definitionId": "alz-example-required-tag-audit",
+      "definitionDisplayName": "ALZ Example: Audit required tag",
+      "version": "1.0.0",
+      "initialEffect": "Audit",
+      "scope": "alz-example"
+    }
+  ]
+}

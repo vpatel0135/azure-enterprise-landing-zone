@@ -2,6 +2,13 @@
 
 This Terraform root deploys the accepted archetype-based management-group hierarchy and places subscriptions according to either the `lab` or `enterprise` profile.
 
+It also assigns the first organizational Azure Policy initiative at `alz-example`. The initial release audits:
+
+- resources outside the approved Azure locations; and
+- taggable resources missing any key from the accepted seven-tag metadata contract.
+
+Both controls begin in audit mode. There are no remediation identities or automatic changes, and location enforcement is not promoted to deny until compliance evidence has been reviewed.
+
 ## Profiles
 
 - `lab` places one existing subscription directly beneath `alz-example`. The subscription intentionally represents several platform and workload responsibilities, so the lab does not claim subscription-level isolation.
@@ -23,3 +30,5 @@ The deploying identity needs permission to create management groups beneath the 
 6. Apply only an approved saved plan.
 
 The remote state is isolated in the `organization` container with the key `organization.tfstate`.
+
+The machine-readable policy inventory is stored in `policy/catalog.json`. Built-in versions are observed and reviewed rather than updated implicitly.
