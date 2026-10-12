@@ -70,6 +70,7 @@ jobs:
           set +e
           terraform -chdir="platform/${{ matrix.root }}" plan \
             -input=false \
+            -lock=false \
             -detailed-exitcode \
             -out=tfplan \
             >"${RUNNER_TEMP}/${{ matrix.root }}-plan.log" 2>&1
