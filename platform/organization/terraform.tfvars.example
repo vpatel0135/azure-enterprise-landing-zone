@@ -1,0 +1,13 @@
+tenant_id                  = "00000000-0000-0000-0000-000000000000"
+deployment_subscription_id = "00000000-0000-0000-0000-000000000000"
+
+profile             = "lab"
+lab_subscription_id = "00000000-0000-0000-0000-000000000000"
+
+# Enterprise example; use this instead of lab_subscription_id when profile is enterprise.
+# enterprise_subscription_ids = {
+#   management                  = "00000000-0000-0000-0000-000000000001"
+#   connectivity                = "00000000-0000-0000-0000-000000000002"
+#   webportfolio_production     = "00000000-0000-0000-0000-000000000003"
+#   webportfolio_nonproduction  = "00000000-0000-0000-0000-000000000004"
+# }
