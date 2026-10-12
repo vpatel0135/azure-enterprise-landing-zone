@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "sources": [
+    {
+      "source": "Azure subscription Activity Log",
+      "destination": "law-eus2p-mgmt-01",
+      "ownerGroup": "sg-alz-platform-operators",
+      "categories": {
+        "Administrative": "Audit control-plane resource and configuration changes.",
+        "Alert": "Investigate changes in Azure Monitor alert state.",
+        "Policy": "Investigate policy evaluation and governance events.",
+        "Recommendation": "Review platform recommendations without enabling paid Defender plans.",
+        "ResourceHealth": "Investigate health changes affecting shared resources.",
+        "Security": "Retain subscription security events exposed through the Activity Log.",
+        "ServiceHealth": "Investigate Azure service incidents and maintenance."
+      },
+      "retentionDays": 30,
+      "expectedVolume": "Low for the personal lab",
+      "paidFeaturesEnabled": []
+    }
+  ]
+}
