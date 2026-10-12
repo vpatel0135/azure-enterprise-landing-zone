@@ -1,0 +1,7 @@
+resource_group_name  = "<state-resource-group>"
+storage_account_name = "<state-storage-account>"
+container_name       = "workload-foundations"
+key                  = "wedding.tfstate"
+use_azuread_auth     = true
+tenant_id            = "<tenant-id>"
+subscription_id      = "<subscription-id>"

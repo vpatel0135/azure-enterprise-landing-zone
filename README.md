@@ -6,7 +6,7 @@ After the platform foundation is validated, an existing personal website will be
 
 ## Project status
 
-Architecture decisions 0001–0008 are accepted. Repository validation, the naming module, and the remote-state bootstrap are now being implemented. No Azure resources are deployed yet.
+Architecture decisions 0001–0008 are accepted. The lab profile is deployed in Azure with remote state, management groups, policy, group-based RBAC, monitoring, cost-conscious hub-and-spoke networking, and a read-only GitHub OIDC plan workflow. The Wedding workload now has governed production and non-production resource-group foundations; hosting and application deployment automation are next.
 
 ## Planned outcomes
 
