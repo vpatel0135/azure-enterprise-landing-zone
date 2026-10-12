@@ -32,4 +32,9 @@ run "uses_non_overlapping_low_cost_topology" {
     condition     = alltrue([for subnet in azurerm_subnet.network : !subnet.default_outbound_access_enabled])
     error_message = "Subnets must not rely on Azure default outbound access."
   }
+
+  assert {
+    condition     = azurerm_network_security_group.network["hub"].name == "nsg-eus2p-conn-01" && azurerm_network_security_group.network["demo"].name == "nsg-eus2n-demo-01"
+    error_message = "NSG names must follow the compact region, environment, workload, and instance convention."
+  }
 }

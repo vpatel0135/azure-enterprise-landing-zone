@@ -6,6 +6,7 @@ locals {
       vnet_cidr           = "10.100.0.0/22"
       subnet_name         = "snet-shared-01"
       subnet_cidr         = "10.100.0.0/24"
+      nsg_name            = "nsg-eus2p-conn-01"
       environment         = "production"
       application         = "platform-connectivity"
       criticality         = "high"
@@ -16,6 +17,7 @@ locals {
       vnet_cidr           = "10.100.16.0/20"
       subnet_name         = "snet-workload-01"
       subnet_cidr         = "10.100.16.0/24"
+      nsg_name            = "nsg-eus2n-demo-01"
       environment         = "nonproduction"
       application         = "connected-spoke-demo"
       criticality         = "low"
@@ -56,7 +58,7 @@ resource "azurerm_virtual_network" "network" {
 resource "azurerm_network_security_group" "network" {
   for_each = local.networks
 
-  name                = "nsg-${each.value.subnet_name}"
+  name                = each.value.nsg_name
   resource_group_name = azurerm_resource_group.network[each.key].name
   location            = azurerm_resource_group.network[each.key].location
   tags                = merge(var.tags, local.required_tags[each.key])

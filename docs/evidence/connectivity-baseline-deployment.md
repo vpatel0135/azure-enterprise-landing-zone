@@ -11,7 +11,7 @@ The deployed topology contains:
 | Regional hub | `vnet-eus2p-conn-01` | `10.100.0.0/22` | `snet-shared-01` (`10.100.0.0/24`) |
 | Non-production demonstration spoke | `vnet-eus2n-demo-01` | `10.100.16.0/20` | `snet-workload-01` (`10.100.16.0/24`) |
 
-Both subnets have an associated network security group and explicitly disable Azure default outbound access.
+Both subnets have an associated network security group and explicitly disable Azure default outbound access. The NSGs use the compact names `nsg-eus2p-conn-01` and `nsg-eus2n-demo-01`; their subnet associations remain explicit in Terraform rather than being duplicated in the resource names.
 
 ## Peering verification
 
