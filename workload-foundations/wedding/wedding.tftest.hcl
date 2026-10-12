@@ -28,4 +28,19 @@ run "creates_isolated_environment_foundations" {
     condition     = azuread_group.operators.display_name == "sg-wed-operators"
     error_message = "Human access must be assigned through the Wedding operator group."
   }
+
+  assert {
+    condition     = length(azuread_application.automation) == 4
+    error_message = "Wedding must use separate plan/apply identities for production and non-production."
+  }
+
+  assert {
+    condition     = azuread_application_federated_identity_credential.automation["production-apply"].subject == "repo:vpatel0135/VS-Wedding-2026:environment:wedding-production"
+    error_message = "Production apply must trust only the Wedding production GitHub environment."
+  }
+
+  assert {
+    condition     = endswith(azurerm_role_assignment.automation_resource_group["production-apply"].role_definition_id, "/b24988ac-6180-42a0-ab88-20f7382dd24c")
+    error_message = "Production apply must use Contributor rather than an access-administrator role."
+  }
 }

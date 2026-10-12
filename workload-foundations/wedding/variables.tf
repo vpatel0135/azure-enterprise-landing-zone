@@ -42,3 +42,26 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "github_repository" {
+  description = "GitHub owner/repository trusted by the Wedding workload identities."
+  type        = string
+  default     = "vpatel0135/VS-Wedding-2026"
+
+  validation {
+    condition     = can(regex("^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$", var.github_repository))
+    error_message = "github_repository must use owner/repository format."
+  }
+}
+
+variable "state_resource_group_name" {
+  description = "Resource group containing the Wedding Terraform state containers."
+  type        = string
+  default     = "rg-eus2p-state-01"
+}
+
+variable "state_storage_account_name" {
+  description = "Storage account containing the Wedding Terraform state containers."
+  type        = string
+  default     = "steus2pstate01"
+}

@@ -11,13 +11,21 @@ The deployment created:
 - Microsoft Entra security group `sg-wed-operators`; and
 - one resource-group-scoped Contributor assignment for that group in each environment.
 
+The approved automation extension also created:
+
+- private `wedding-nonproduction` and `wedding-production` Terraform state containers;
+- distinct plan and apply identities for both environments;
+- four repository-bound GitHub OIDC federated credentials;
+- Reader plus state-reader access for each plan identity; and
+- resource-group Contributor plus container-scoped state-contributor access for each apply identity.
+
 Resource groups carry the approved application, environment, owner-group, cost-center, managed-by, criticality, and data-classification tags. No paid hosting resource was created in this step.
 
 ## Isolation boundary
 
 The lab profile uses one Azure Free Trial subscription, so its production and non-production environments do not have subscription-level isolation. Separate resource groups, RBAC scopes, and the isolated `wedding.tfstate` key demonstrate the onboarding pattern without misrepresenting the lab as the enterprise target.
 
-The application repository will own application-specific resources inside these platform-created resource groups. Application plan and apply identities remain intentionally deferred until the repository and protected GitHub environment subjects are known. Those identities will be environment-specific and will not receive subscription-wide access.
+The application repository will own application-specific resources inside these platform-created resource groups. Non-production apply trusts only the `wedding-nonproduction` GitHub environment, and production apply trusts only `wedding-production`. The plan identities trust the repository's `main` branch. No Wedding automation identity has subscription-wide access, access-administrator permissions, or client secrets.
 
 ## Validation performed
 
@@ -28,3 +36,6 @@ The application repository will own application-specific resources inside these 
 - The reviewed plan contained five additions, no changes, and no deletions.
 - The apply created five objects and destroyed none.
 - A live post-apply plan reported zero drift.
+- The automation plan contained 20 additions, no changes, and no deletions.
+- The automation apply created four applications, four service principals, four federated credentials, and eight narrowly scoped role assignments.
+- A second live post-apply plan reported zero drift after the automation deployment.

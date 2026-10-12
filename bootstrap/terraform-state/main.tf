@@ -19,6 +19,8 @@ locals {
     "identity",
     "management",
     "organization",
+    "wedding-nonproduction",
+    "wedding-production",
     "workload-foundations",
   ])
 }
