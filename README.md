@@ -47,6 +47,6 @@ Architecture decisions 0001–0008 are accepted. Repository validation, the nami
 - Azure CLI for authenticated plans and deployments
 - TFLint 0.59.1 for local linting
 
-Pull requests run formatting, offline initialization, validation, Terraform tests, linting, and secret scanning without Azure credentials. Azure-backed plans and applies will be added behind OIDC identities and protected GitHub environments.
+Pull requests run formatting, offline initialization, validation, Terraform tests, linting, and secret scanning without Azure credentials. A manual Azure-backed plan workflow uses a read-only OIDC identity for the organization, management, and connectivity roots. Apply automation remains intentionally disabled until its write-capable identity and protected GitHub environment receive explicit approval.
 
 See [the project brief](docs/project-brief.md), [decision review record](docs/decision-review.md), [architecture decision index](docs/decisions/README.md), and [state-bootstrap runbook](bootstrap/terraform-state/README.md).

@@ -26,7 +26,9 @@ The proposed write-capable apply identity was not deployed. Creating a persisten
 
 The manual `Platform plan` workflow is defined and requests `id-token: write` only for its Azure-authenticated job. It suppresses full plan output and publishes only whether changes exist so personal tenant identifiers do not appear in public logs.
 
-The workflow has not yet completed end-to-end because the GitHub web session needed to create repository variables is not authenticated. It remains manual-only so pushing the workflow does not create a known failed run. The missing variables and recovery steps are listed in the OIDC bootstrap runbook.
+The five non-secret repository variables documented in the OIDC bootstrap runbook are configured. The workflow remains manual-only and uses `-lock=false` because its identity can read state but cannot create a blob lease. This preserves the read-only authorization boundary; the workflow must not run concurrently with a platform apply.
+
+GitHub Actions run [Platform plan #2](https://github.com/vpatel0135/azure-enterprise-landing-zone/actions/runs/38239182435) completed successfully on 2026-10-12. Its organization, management, and connectivity matrix jobs all authenticated through OIDC, initialized their isolated remote-state containers, and completed Terraform planning.
 
 ## Validation performed
 
@@ -34,3 +36,4 @@ The workflow has not yet completed end-to-end because the GitHub web session nee
 - The identity tests verified distinct plan/apply designs and the exact protected apply subject.
 - TFLint completed without findings.
 - Live Terraform refresh reported zero drift after Azure role-ID normalization.
+- The GitHub-hosted plan workflow completed successfully across all three automated platform roots.

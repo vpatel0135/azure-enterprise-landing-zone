@@ -41,7 +41,7 @@ This roadmap tracks the complete portfolio outcome. Checkmarks require evidence 
 - [ ] Add separate plan and apply workflows.
 - [ ] Protect production deployment through a GitHub environment.
 - [x] Add static Terraform tests and policy tests.
-- [ ] Add plan-based integration validation.
+- [x] Add plan-based integration validation.
 - [ ] Generate a profile capability/control-gap report.
 - [ ] Document deployment, upgrade, recovery, and teardown procedures.
 
