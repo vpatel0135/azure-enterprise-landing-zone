@@ -47,9 +47,9 @@ This roadmap tracks the complete portfolio outcome. Checkmarks require evidence 
 
 ## 5. Website application landing zone
 
-- [ ] Inspect the wedding and honeymoon websites.
-- [ ] Select one workload and record the rationale.
-- [ ] Define its production and non-production hosting architecture.
+- [x] Inspect the wedding and honeymoon websites.
+- [x] Select one workload and record the rationale.
+- [x] Define its production and non-production hosting architecture.
 - [ ] Implement workload infrastructure and deployment identity.
 - [ ] Deploy through the governed landing-zone workflow.
 - [ ] Validate inherited policy, identity boundaries, monitoring, and cost controls.

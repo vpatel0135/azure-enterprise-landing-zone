@@ -49,4 +49,4 @@ Architecture decisions 0001–0008 are accepted. The lab profile is deployed in 
 
 Pull requests run formatting, offline initialization, validation, Terraform tests, linting, and secret scanning without Azure credentials. A manual Azure-backed plan workflow uses a read-only OIDC identity for the organization, management, and connectivity roots. Apply automation remains intentionally disabled until its write-capable identity and protected GitHub environment receive explicit approval.
 
-See [the project brief](docs/project-brief.md), [decision review record](docs/decision-review.md), [architecture decision index](docs/decisions/README.md), and [state-bootstrap runbook](bootstrap/terraform-state/README.md).
+See [the project brief](docs/project-brief.md), [decision review record](docs/decision-review.md), [architecture decision index](docs/decisions/README.md), [Wedding onboarding design](docs/workloads/wedding-onboarding.md), and [state-bootstrap runbook](bootstrap/terraform-state/README.md).
