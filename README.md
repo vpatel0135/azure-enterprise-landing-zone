@@ -4,6 +4,17 @@ This project will demonstrate how to design, deploy, and operate a production-mi
 
 After the platform foundation is validated, an existing personal website will be onboarded as the first governed workload. This proves that the landing zone is usable, rather than only presenting a theoretical architecture.
 
+## Why this project exists
+
+The initial workload grew from a real operational problem: coordinating a multi-day Indian wedding for approximately 500 guests. Information was distributed across conversations, documents, and different groups of people, creating a high risk of schedule confusion and missed updates.
+
+The solution was a central source of truth with two deliberately separated experiences:
+
+- a mobile-friendly guest site for schedules, venues, transportation, and event updates; and
+- a private operations site for immediate family and organizers managing the detailed run of show.
+
+The wedding ran successfully, guests had a clear place to find current information, and the planned events proceeded without unexpected operational surprises. This landing-zone project turns that working solution into a repeatable, governed Azure deployment while keeping the original personal data private. The public workload uses synthetic people, dates, venues, and addresses.
+
 ## Project status
 
 Architecture decisions 0001–0008 are accepted. The lab profile is deployed in Azure with remote state, management groups, policy, group-based RBAC, monitoring, cost-conscious hub-and-spoke networking, and GitHub OIDC identities. The first governed workload is live in Azure Static Web Apps with isolated non-production and production delivery, custom domains, managed TLS, and privacy-safe demonstration data.
