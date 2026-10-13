@@ -6,7 +6,73 @@ After the platform foundation is validated, an existing personal website will be
 
 ## Project status
 
-Architecture decisions 0001–0008 are accepted. The lab profile is deployed in Azure with remote state, management groups, policy, group-based RBAC, monitoring, cost-conscious hub-and-spoke networking, and a read-only GitHub OIDC plan workflow. The Wedding workload now has governed production and non-production resource-group foundations; hosting and application deployment automation are next.
+Architecture decisions 0001–0008 are accepted. The lab profile is deployed in Azure with remote state, management groups, policy, group-based RBAC, monitoring, cost-conscious hub-and-spoke networking, and GitHub OIDC identities. The first governed workload is live in Azure Static Web Apps with isolated non-production and production delivery, custom domains, managed TLS, and privacy-safe demonstration data.
+
+## Architecture
+
+The repository models an enterprise target while deploying a cost-conscious single-subscription lab. Management groups express governance archetypes; subscriptions provide the intended enterprise isolation boundary; and the lab uses separate resource groups, identities, state files, and GitHub environments to demonstrate the same operating model without overstating its isolation.
+
+```mermaid
+flowchart TB
+    DEV["Engineer"] -->|pull request or approved workflow| GH["GitHub Actions"]
+    GH -->|OIDC federation<br/>no stored Azure secrets| ENTRA["Microsoft Entra ID"]
+    ENTRA --> PLAN["Read-only plan identity"]
+    ENTRA --> NPAPPLY["Non-production apply identity"]
+    ENTRA --> PAPPLY["Production apply identity"]
+
+    subgraph AZURE["Azure landing zone"]
+        ROOT["ALZ Example management group<br/>baseline policy and RBAC"]
+
+        subgraph PLATFORM["Platform"]
+            MGMT["Management<br/>Log Analytics and monitoring"]
+            CONN["Connectivity<br/>cost-conscious hub and demo spoke"]
+            ID["Identity<br/>optional shared identity services"]
+        end
+
+        subgraph LANDINGZONES["Landing Zones"]
+            ONLINE["Online<br/>internet-facing workload guardrails"]
+            CORP["Corp<br/>future private or hybrid workloads"]
+        end
+
+        SANDBOX["Sandboxes"]
+        DECOM["Decommissioned"]
+
+        ROOT --> PLATFORM
+        ROOT --> LANDINGZONES
+        ROOT --> SANDBOX
+        ROOT --> DECOM
+        ROOT --> LAB
+        PLATFORM --> MGMT
+        PLATFORM --> CONN
+        PLATFORM --> ID
+        LANDINGZONES --> ONLINE
+        LANDINGZONES --> CORP
+
+        subgraph LAB["Deployed lab profile - one Azure subscription"]
+            STATE["Remote Terraform state<br/>Azure Storage"]
+            NPRG["Non-production resource group<br/>isolated RBAC and state"]
+            PRG["Production resource group<br/>isolated RBAC and state"]
+            NPSWA["Azure Static Web App<br/>SIT"]
+            PSWA["Azure Static Web App<br/>Production"]
+            OBS["Platform and workload metrics"]
+
+            NPRG --> NPSWA
+            PRG --> PSWA
+            NPSWA --> OBS
+            PSWA --> OBS
+        end
+    end
+
+    PLAN -->|plan only| ROOT
+    NPAPPLY -->|resource-group scoped| NPRG
+    PAPPLY -->|resource-group scoped| PRG
+    GH -->|environment-specific state| STATE
+
+    USERS["Portfolio visitors"] -->|HTTPS and custom domain| PSWA
+    TESTERS["SIT validation"] -->|HTTPS| NPSWA
+```
+
+The enterprise profile places Management, Connectivity, web-portfolio production, and web-portfolio non-production in separate subscriptions beneath their respective management groups. The deployed lab intentionally consolidates those resources into one Azure Free Trial subscription while preserving logical and authorization boundaries.
 
 ## Planned outcomes
 
