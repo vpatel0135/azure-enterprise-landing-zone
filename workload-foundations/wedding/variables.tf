@@ -46,11 +46,11 @@ variable "tags" {
 variable "github_repository" {
   description = "GitHub owner/repository trusted by the Wedding workload identities."
   type        = string
-  default     = "vpatel0135/azure-wedding-operations-demo"
+  default     = "vpatel0135@300160549/azure-wedding-operations-demo@1416362671"
 
   validation {
-    condition     = can(regex("^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$", var.github_repository))
-    error_message = "github_repository must use owner/repository format."
+    condition     = can(regex("^[A-Za-z0-9_.-]+(@[0-9]+)?/[A-Za-z0-9_.-]+(@[0-9]+)?$", var.github_repository))
+    error_message = "github_repository must use owner/repository format, optionally with immutable @ID suffixes."
   }
 }
 

@@ -35,7 +35,7 @@ run "creates_isolated_environment_foundations" {
   }
 
   assert {
-    condition     = azuread_application_federated_identity_credential.automation["production-apply"].subject == "repo:vpatel0135/VS-Wedding-2026:environment:wedding-production"
+    condition     = azuread_application_federated_identity_credential.automation["production-apply"].subject == "repo:vpatel0135@300160549/azure-wedding-operations-demo@1416362671:environment:wedding-production"
     error_message = "Production apply must trust only the Wedding production GitHub environment."
   }
 
