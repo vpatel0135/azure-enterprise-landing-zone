@@ -46,7 +46,7 @@ variable "tags" {
 variable "github_repository" {
   description = "GitHub owner/repository trusted by the Wedding workload identities."
   type        = string
-  default     = "vpatel0135/VS-Wedding-2026"
+  default     = "vpatel0135/azure-wedding-operations-demo"
 
   validation {
     condition     = can(regex("^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$", var.github_repository))
