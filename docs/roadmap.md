@@ -55,7 +55,21 @@ This roadmap tracks the complete portfolio outcome. Checkmarks require evidence 
 - [ ] Validate inherited policy, identity boundaries, monitoring, and cost controls.
 - [ ] Document the onboarding experience and evidence.
 
-## 6. Portfolio release
+## 6. AKS sandbox learning workload
+
+- [ ] Define a small AKS learning scenario and decide what application, if any, it should host.
+- [ ] Record an ADR covering cluster identity, networking, ingress, secrets, node sizing, upgrade strategy, and workload isolation.
+- [ ] Estimate the complete hourly and monthly cost, including worker nodes, disks, load balancers, public IPs, logs, and container registry.
+- [ ] Add a dedicated budget, tags, and an automatic teardown or scale-down procedure before deployment.
+- [ ] Deploy the cluster with Terraform and GitHub OIDC in a sandbox scope rather than the production website resource groups.
+- [ ] Deploy a containerized sample workload with health probes, resource requests and limits, and namespace isolation.
+- [ ] Validate ingress, TLS, workload identity, observability, upgrades, and recovery.
+- [ ] Capture sanitized deployment evidence and compare AKS operational overhead with Azure Static Web Apps.
+- [ ] Decide whether a real workload justifies remaining on AKS or whether the cluster should be destroyed after the learning exercise.
+
+AKS is intentionally outside the current low-cost baseline. The Kubernetes control plane can be free in the Free tier, but worker virtual machines and supporting resources still incur charges. The experiment must therefore be budgeted and designed for safe teardown before it is deployed.
+
+## 7. Portfolio release
 
 - [ ] Produce final architecture and identity-flow diagrams.
 - [ ] Record tested costs and identify optional cost drivers.
