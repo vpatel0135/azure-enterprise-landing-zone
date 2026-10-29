@@ -4,4 +4,4 @@ subscription_id = "00000000-0000-0000-0000-000000000002"
 # Keep real object IDs outside source control.
 group_member_object_ids = []
 
-github_repository = "vpatel0135@300160549/azure-wedding-operations-demo@1416362671"
+github_repository = "vpatel0135@300160549/azure-wedding-guest-demo@1416362671"
